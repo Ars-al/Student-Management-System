@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Your Query Support</h3>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h5 class="form-title"><span>Your Query</span></h5>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Your Subject</label>
+                                                   <input type="text" class="form-control" name="subject" readonly value="{{query.subject}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Your Query</label>
+                                                   <textarea class="form-control" name="query"  readonly>{{query.any_query}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Your Support</label>
+                                                {% if support_reply %}
+                                                    {% for reply in support_reply %}
+                                                        <textarea class="form-control" name="query_reply" readonly>{{reply.query_reply}}</textarea>
+                                                        <br>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+
+
+{% endblock %}

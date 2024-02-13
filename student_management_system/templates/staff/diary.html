@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Daily Diary</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="subjects.html">Dashboard</a></li>
+                           <li class="breadcrumb-item active">Daily Diary</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+    {% include 'includes/messages.html' %}
+      {% if action is None %}
+      <form method="post" action="?action=Show-Students">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Add Diary</span></h5>
+                                 </div>
+
+                                  <div class="col-12 col-sm-6">
+                                 <div class="form-group">
+                                        <label>Subject</label>
+                                       <select class="form-control" name="subject_id">
+                                            <option>-- Select Subject--</option>
+                                            {% for i in subjects %}
+                                            <option value="{{i.id}}">{{i.name}}</option>
+                                            {% endfor %}
+
+                                      </select>
+                                 </div>
+                                  </div>
+                                 <br>
+                                <div class="col-10 mr-3">
+                                    <button type="submit" class="btn btn-primary">Show</button>
+                                 </div>
+                              </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+      {% else %}
+      <form method="post" action="{% url 'add_diary' %}">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row align-items-center">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Add Diary</span></h5>
+                                 </div>
+                                  <div class="col-12 col-sm-6">
+                                     <div class="form-group">
+                                        <label >Subject</label>
+                                           <select class="form-control" name="subject_id">
+                                                <option value="{{get_subject.id}}">{{get_subject}}</option>
+                                          </select>
+                                     </div>
+                                  </div>
+                                  <div class="col-12">
+                                     <div class="form-group">
+                                         <label>Diary Date</label>
+                                         <input type="date" class="form-control" name="diary_date">
+                                     </div>
+                                 </div>
+                                  <div class="col-12">
+                                     <div class="form-group">
+                                         <label>Diary</label>
+                                         <textarea class="form-control" name="diary" placeholder="Write Diary Here..." rows="8"></textarea>
+                                     </div>
+                                 </div>
+                                  <div class="col-12">
+                                      <button type="submit" class="btn btn-primary">Add Diary</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+      {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Check Diary</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="subjects.html">Dashboard</a></li>
+                           <li class="breadcrumb-item active">Check Diary</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+      <form method="post">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row align-items-center">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>View Diary</span></h5>
+                                 </div>
+                                  <div class="col-12 col-sm-6">
+                                     <div class="form-group">
+                                        <label >Subject</label>
+                                         <input type="text" class="form-control" name="subject_id" value="{{get_subject.name}}" readonly>
+                                     </div>
+                                  </div>
+                                      <div class="col-12">
+                                         <div class="form-group">
+                                             <label>Diary Date</label>
+                                             <input type="text" class="form-control" name="diary_date" value="{{diary.diary_date}}" readonly>
+                                         </div>
+                                      </div>
+                                      <div class="col-12">
+                                         <div class="form-group">
+                                             <label>Diary</label>
+                                             <textarea class="form-control" name="diary" rows="8" readonly>{{diary.diary}}</textarea>
+                                         </div>
+                                      </div>
+                              </div>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+</div>
+
+{% endblock %}

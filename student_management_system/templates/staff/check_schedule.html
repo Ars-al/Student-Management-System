@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title"> Schedule</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="subjects.html">Dashboard</a></li>
+                           <li class="breadcrumb-item active">Check Schedule</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+    {% include 'includes/messages.html' %}
+      {% if action is None %}
+      <form method="post" action="?action=Show-Students">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Check Schedule</span></h5>
+                                 </div>
+
+                                  <div class="col-12 col-sm-6">
+                                 <div class="form-group">
+                                 <label >Subject</label>
+                                       <select class="form-control" name="subject_id">
+                                            <option>-- Select Subject--</option>
+                                            {% for i in subjects %}
+                                            <option value="{{i.id}}">{{i.name}}</option>
+                                            {% endfor %}
+                                      </select>
+                                 </div>
+                                  </div>
+                                 <br>
+                                <div class="col-10 mr-3">
+                                    <button type="submit" class="btn btn-primary">Fetch Schedule</button>
+                                 </div>
+                              </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+      {% else %}
+      <form method="post" action="{% url 'schedule_assign' %}">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Check Schedule</span></h5>
+                                 </div>
+                                  <div class="col-12 col-sm-6">
+                                     <div class="form-group">
+                                        <label >Subject</label>
+                                           <select class="form-control" name="subject_id">
+                                                <option value="{{get_subject.id}}">{{get_subject}}</option>
+                                          </select>
+                                     </div>
+                                  </div>
+                              </div>
+                            <div class="row">
+                                {% for i in schedule %}
+                                  <div class="col-12 col-sm-4">
+                                      <div class="form-group">
+                                        <label>Date</label>
+                                           <input type="text" class="form-control" name="sch_date" value="{{i.assign_date}}" readonly>
+                                      </div>
+                                  </div>
+
+                                  <div class="col-12 col-sm-4">
+                                      <div class="form-group">
+                                        <label> Time</label>
+                                           <input type="text" class="form-control" name="sch_time" value="{{i.assign_time}} To {{i.end_time}}" readonly>
+                                      </div>
+                                  </div>
+                                <div class="col-12 col-sm-4">
+                                      <div class="form-group">
+                                        <label>Room No</label>
+                                           <input type="text" class="form-control" name="sch_room" value="{{i.room_no}}" readonly>
+                                      </div>
+                                  </div>
+                                  {% endfor %}
+                            </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+      {% endif %}
+</div>
+
+{% endblock %}

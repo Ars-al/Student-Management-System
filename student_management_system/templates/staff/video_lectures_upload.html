@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Video Lectures</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="subjects.html">Dashboard</a></li>
+                           <li class="breadcrumb-item active">Video Lectures</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+    {% include 'includes/messages.html' %}
+      {% if action is None %}
+      <form method="post" action="?action=Show-Students">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Add Video Lectures</span></h5>
+                                 </div>
+
+                                  <div class="col-12 col-sm-6">
+                                 <div class="form-group">
+                                        <label>Subject</label>
+                                       <select class="form-control" name="subject_id">
+                                            <option>-- Select Subject--</option>
+                                            {% for i in subjects %}
+                                            <option value="{{i.id}}">{{i.name}}</option>
+                                            {% endfor %}
+
+                                      </select>
+                                 </div>
+                                  </div>
+                                 <br>
+                                <div class="col-10 mr-3">
+                                    <button type="submit" class="btn btn-primary">Show</button>
+                                 </div>
+                              </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+      {% else %}
+      <form method="post">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row align-items-center">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Add Video Lectures</span></h5>
+                                 </div>
+                                  <div class="col-12 col-sm-6">
+                                 <div class="form-group">
+                                 <label >Subject</label>
+                                       <select class="form-control" name="subject_id">
+                                            <option value="{{get_subject.id}}">{{get_subject}}</option>
+                                      </select>
+                                 </div>
+                                  </div>
+                                  <div class="col-12 col-sm-6">
+                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                          Add Topic
+                                      </button>
+                                  </div>
+                              </div>
+                            <div class="row">
+                                                      <div class="col-sm-12">
+                                                         <div class="card card-table">
+                                                            <div class="card-body">
+                                                               <div class="table-responsive">
+                                                                   <table id="table_id " class="table table-hover table-center mb-0">
+                                                                     <thead>
+                                                                        <tr>
+                                                                           <th>Week</th>
+                                                                           <th>Topics</th>
+                                                                            <th>Pdf/Notes</th>
+                                                                            <th>Edit Topic</th>
+                                                                        </tr>
+                                                                     </thead>
+                                                                     <tbody>
+                                                                        {% for i in syllabus %}
+                                                                            <tr>
+                                                                               <td>{{i.week}}</td>
+                                                                               <td><a class="text-dark" href="{{i.video_link}}" target="_blank">{{i.topics}}</a></td>
+                                                                                <td><input type="text" class="form-control w-75" value="{{i.notes_pdf}}" readonly></td>
+                                                                                <td>
+                                                                                    <a href="{% url 'delete_topic' i.id %}" class="btn btn-sm bg-danger-light"><i class="fas fa-trash"></i></a>
+                                                                                    <a href="{% url 'update_topic_page' i.id %}" class="btn btn-sm bg-danger-light"><i class="fas fa-pen"></i></a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                     </tbody>
+                                                                  </table>
+                                                               </div>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+      {% endif %}
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Topic</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form method="post" action="{% url 'add_topic' %}">
+              {% csrf_token %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Week</label>
+                            <input type="text" class="form-control" name="week">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Topic</label>
+                            <input type="text" class="form-control" name="topic">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Notes/Pdf</label>
+                            <input type="file" class="form-control" name="notes">
+                        </div>
+                    </div>
+                     <div class="col-12" hidden="">
+                         <div class="form-group">
+                             <label >Subject</label>
+                             <select class="form-control" name="subject_id" hidden>
+                                    <option value="{{get_subject.id}}">{{get_subject}}</option>
+                             </select>
+                         </div>
+                     </div>
+                    <div class="col-12">
+                         <div class="form-group">
+                             <label>Video URL</label>
+                             <input type="url" class="form-control" name="video_url">
+                         </div>
+                     </div>
+                </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

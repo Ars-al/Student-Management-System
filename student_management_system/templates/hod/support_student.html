@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Student Support & Guidance</h3>
+<!--                <ul class="breadcrumb">-->
+<!--                    <li class="breadcrumb-item"><a href="subjects.html">Dashboard</a></li>-->
+<!--                    <li class="breadcrumb-item active">Clas TimeTable</li>-->
+<!--                </ul>-->
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form>
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h5 class="form-title"><span>About Queries</span></h5>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Name</label>
+                                                <input type="text" class="form-control" name="name" value="{{support_student.name}}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Subject</label>
+                                                   <input type="text" class="form-control" name="subject" value="{{support_student.subject}}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Any Query</label>
+                                                   <textarea class="form-control" name="query" readonly>{{support_student.any_query}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="post" action="{% url 'update_student' %}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+<!--                                    <div class="row">-->
+                                        <div class="col-12">
+                                            <h5 class="form-title"><span>Edit Student</span></h5>
+                                        </div>
+
+                                        {% include 'includes/messages.html' %}
+
+                                        {% for i in student %}
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>First Name</label>
+                                                    <input type="text" class="form-control" name="first_name" value="{{i.admin.first_name}}">
+                                                    <input type="text" class="form-control" name="student_id" value="{{i.admin.id}}" hidden>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Last Name</label>
+                                                    <input type="text" class="form-control" name="last_name" value="{{i.admin.last_name}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Username</label>
+                                                    <input type="text" class="form-control" name="username" value="{{i.admin.username}}">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                       <label>Gender</label>
+                                                       <select class="form-control" name="gender">
+                                                          <option>Select Gender</option>
+                                                          <option value="Female">Female</option>
+                                                          <option value="Male">Male</option>
+                                                          <option value="Others">Others</option>
+                                                       </select>
+                                                    </div>
+                                                 </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                       <label>Course</label>
+                                                       <select class="form-control" name="course_id">
+                                                          <option>Select Course</option>
+                                                           {% for i in course %}
+                                                          <option value="{{i.id}}">{{i.name}}</option>
+                                                           {% endfor %}
+                                                       </select>
+                                                    </div>
+                                                 </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                       <label>Session Year</label>
+                                                       <select class="form-control" name="session_year_id">
+                                                          <option>Select Session Year</option>
+                                                           {% for i in session_year %}
+                                                          <option value="{{i.id}}">{{i.session_start}} To {{i.session_end}}</option>
+                                                           {% endfor %}
+                                                       </select>
+                                                    </div>
+                                                 </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Student Picture</label>
+                                                        <input type="file" class="form-control" name="profile_pic">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Email</label>
+                                                    <input type="email" class="form-control" name="email" value="{{i.admin.email}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Change Password</label>
+                                                    <input type="password" class="form-control" name="password" placeholder="New Password">
+                                                </div>
+                                            </div>
+                                             <div class="col-12">
+                                                <div class="form-group">
+                                                   <label>Address</label>
+                                                   <textarea class="form-control" name="address">{{i.address}}</textarea>
+                                                </div>
+                                             </div>
+                                        {% endfor %}
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary">Update Student</button>
+                                            </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}

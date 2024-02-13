@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Add Schedule</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="subjects.html">Dashboard</a></li>
+                           <li class="breadcrumb-item active">Edit Schedule</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+    {% include 'includes/messages.html' %}
+      <form method="post" action="{% url 'update_schedule' schedule.id %}">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Edit Schedule</span></h5>
+
+                                  <div class="col-12 col-sm-6">
+                                      <div class="form-group">
+                                        <label>Assign Date</label>
+                                           <input type="date" class="form-control" name="sch_date" value="{{schedule.assign_date}}">
+                                      </div>
+                                  </div>
+
+                                  <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label>Start Time</label>
+                                           <input type="time" class="form-control" name="sch_time" value="{{schedule.assign_time}}" >
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label>End Time</label>
+                                           <input type="time" class="form-control" name="end_time" value="{{schedule.end_time}}" >
+                                      </div>
+                                  </div>
+                                   <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label>Room No</label>
+                                           <input type="text" class="form-control" name="sch_room" value="{{schedule.sch_room}}" >
+                                      </div>
+                                  </div>
+                                 <br>
+                                <div class="col-10 mr-3">
+                                    <button type="submit" class="btn btn-primary">Update Schedule</button>
+                                 </div>
+                              </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+</div>
+
+{% endblock %}

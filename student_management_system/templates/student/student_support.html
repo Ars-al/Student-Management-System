@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Student Support & Guidance</h3>
+<!--                <ul class="breadcrumb">-->
+<!--                    <li class="breadcrumb-item"><a href="subjects.html">Dashboard</a></li>-->
+<!--                    <li class="breadcrumb-item active">Clas TimeTable</li>-->
+<!--                </ul>-->
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="form-title"><span><b>Academic Support:</b></span></h5>
+                                <ul>
+                                    <li><b>Tutoring Services: </b> Many schools offer tutoring services to help students with challenging subjects.</li>
+                                    <li class="pt-2"><b>Academic Advising: </b> Academic advisors can assist in choosing courses and planning your academic path.</li>
+                                    <li class="pt-2"><b>Study Skills Workshops: </b> Workshops can provide strategies for effective study habits, time management, and test-taking skills.</li>
+                                </ul>
+                           </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'includes/messages.html' %}
+
+        <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h5 class="form-title"><span>About Queries</span></h5>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Name</label>
+                                                <input type="text" class="form-control" name="name" value="{{student}}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Subject</label>
+                                                   <select class="form-control" name="subject" required>
+                                                      <option>Select Subject</option>
+                                                      <option>Admission Detail</option>
+                                                      <option>Fees Settlement</option>
+                                                      <option>Equipment Issues</option>
+                                                      <option>Security Concerns</option>
+                                                      <option>Cleaning Environment</option>
+                                                      <option>Other</option>
+                                                   </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Any Query</label>
+                                                   <textarea class="form-control" name="query" rows="8" placeholder="Please write your any query here..." required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+
+
+{% endblock %}

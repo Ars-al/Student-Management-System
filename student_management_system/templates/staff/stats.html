@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Statistics</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="subjects.html">Dashboard</a></li>
+                           <li class="breadcrumb-item active">Statistics</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+    {% include 'includes/messages.html' %}
+
+    {% if action is None %}
+        <form method="post" action="?action=Show-Stats">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Statistics</span></h5>
+                                 </div>
+
+                                  <div class="col-12 col-sm-6">
+                                 <div class="form-group">
+                                 <label >Subject</label>
+                                       <select class="form-control" name="subject_id">
+                                            <option>-- Select Subject--</option>
+                                            {% for i in subjects %}
+                                            <option value="{{i.id}}">{{i.name}}</option>
+                                            {% endfor %}
+
+                                      </select>
+                                 </div>
+                                  </div>
+                                 <br>
+                                <div class="col-10 mr-3">
+                                    <button type="submit" class="btn btn-primary">Fetch Student</button>
+                                 </div>
+                              </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+    {% else %}
+        <form method="post">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Statistics</span></h5>
+                                 </div>
+                                  <div class="col-12 col-sm-6">
+                                     <div class="form-group">
+                                        <label >Subject</label>
+                                           <select class="form-control" name="subject_id">
+                                                {% for i in subjects %}
+                                                <option value="{{i.id}}">{{i.name}}</option>
+                                                {% endfor %}
+
+                                          </select>
+                                     </div>
+                                  </div>
+                              </div>
+                                <div class="row">
+                                  <div class="col-12 col-sm-6">
+                                      <div class="form-group">
+                                        <label>Average Points of All Students Class Activity:</label>
+                                           <input type="number" class="form-control" name="class_activity" value="{{average_class_activity}}" readonly>
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="col-12">
+                                                <div class="row">
+                                                      <div class="col-sm-12">
+                                                         <div class="card card-table">
+                                                            <div class="card-body">
+                                                               <div class="table-responsive">
+                                                                  <table id="table_id" class="table table-hover table-center mb-0">
+                                                                     <thead>
+                                                                        <tr>
+                                                                           <th>ID</th>
+                                                                           <th>Name</th>
+                                                                            <th>Average Class Activity</th>
+                                                                            <th>Remarks</th>
+                                                                        </tr>
+                                                                     </thead>
+                                                                     <tbody>
+                                                                        {% for i in students %}
+                                                                            <tr>
+                                                                               <td>{{i.admin.id}}</td>
+                                                                               <td><a class="text-dark" href="{% url 'student_profile' i.id %}"> {{i.admin.first_name}} {{i.admin.last_name}} </a></td>
+                                                                                <td>{{i.activity_avg}}</td>
+
+                                                                                {% if i.activity_avg > average_class_activity %}
+                                                                                    <td>Doing Well!</td>
+                                                                                {% elif i.activity_avg == average_class_activity %}
+                                                                                    <td>Satisfactory!</td>
+                                                                                {% else %}
+                                                                                    <td>Improve Yourself!</td>
+                                                                                {% endif %}
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                     </tbody>
+                                                                  </table>
+                                                               </div>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                            </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+    {% endif %}
+</div>
+
+{% endblock %}

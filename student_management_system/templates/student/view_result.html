@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">View Result</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+                           <li class="breadcrumb-item active">Result</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+
+                {% include 'includes/messages.html' %}
+
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card card-table">
+                        <div class="card-body">
+                           <div class="table-responsive">
+                              <table id="table_id" class="table table-hover table-center mb-0">
+                                 <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Subject</th>
+                                        <th>Assignment 1</th>
+                                        <th>Assignment 2</th>
+                                        <th>Quiz 1</th>
+                                        <th>Quiz 2</th>
+                                        <th>Class Activity 1</th>
+                                        <th>Mid Term</th>
+                                        <th>Assignment 3</th>
+                                        <th>Assignment 4</th>
+                                        <th>Quiz 3</th>
+                                        <th>Quiz 4</th>
+                                        <th>Class Activity 2</th>
+                                        <th>Final Term</th>
+                                        <th>Total Marks/100</th>
+                                        <th class="text-right">Status</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    {% for i in results %}
+                                        <tr>
+                                           <td>{{i.id}}</td>
+                                            <td>{{i.subject_id.name}}</td>
+                                            <td>{{i.assignment_marks}}</td>
+                                            <td>{{i.assignment_2}}</td>
+                                            <td>{{i.quiz_1}}</td>
+                                            <td>{{i.quiz_2}}</td>
+                                            <td>{{i.class_activity_1}}</td>
+                                            <td>{{i.mid_term}}</td>
+                                            <td>{{i.assignment_3}}</td>
+                                            <td>{{i.assignment_4}}</td>
+                                            <td>{{i.quiz_3}}</td>
+                                            <td>{{i.quiz_4}}</td>
+                                            <td>{{i.class_activity_2}}</td>
+                                            <td>{{i.exam_marks}}</td>
+                                            <td>{{i.total_marks}}</td>
+                                           <td class="text-right">
+                                              {% if i.total_marks >= 50 %}
+                                               <span class="badge badge-success">Passed</span>
+                                               {% else %}
+                                               <span class="badge badge-danger">Failed</span>
+                                               {% endif %}
+                                           </td>
+                                        </tr>
+                                    {% endfor %}
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+{% endblock %}

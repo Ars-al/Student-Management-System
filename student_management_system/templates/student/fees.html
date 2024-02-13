@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="page-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="page-title">Fees</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Generate Invoice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+<div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="post" action="">
+                                    {% csrf_token %}
+                                        <div class="col-12">
+                                            <h5 class="form-title"><span>Generate Fee Voucher</span></h5>
+                                        </div>
+
+                                    {% for i in fees %}
+                                    <div class="mt-3">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6">
+                                                <div class="form-group">
+                                                   <label>Description</label>
+                                                <input type="text" class="form-control" name="description" value="{{i.description}}" readonly>
+                                                </div>
+                                             </div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="form-group">
+                                                   <label>Amount</label>
+                                                <input type="text" class="form-control" name="amount" value="{{i.amount}}" readonly>
+                                                </div>
+                                             </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+<!--                                    <div id="inputFieldsContainer" class="mt-3">-->
+<!--                                        <div class="row"></div>-->
+<!--                                    </div>-->
+
+                                    <div class="col-12 text-right">
+                                        <a href="{% url 'generate_pdf' %}" class="btn btn-primary">Generate Voucher</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}

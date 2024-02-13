@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ school_name }} - {{ page_title }}</title>
+</head>
+<body>
+    <h1>{{ school_name }}</h1>
+    <h2>{{ page_title }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Paper</th>
+                <th>Subject</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>{{ paper.id }}</td>
+                    <td>{{ paper.exam_name }}</td>
+                    <td>{{ paper.exam_subject }}</td>
+                </tr>
+        </tbody>
+    </table>
+</body>
+</html>

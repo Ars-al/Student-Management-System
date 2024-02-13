@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-header">
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <h3 class="page-title">{{student_id.admin.first_name}} {{student_id.admin.last_name}}</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item active">Result Profile</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                     <div class="card bg-one w-100">
+                        <div class="card-body">
+                           <div class="db-widgets d-flex justify-content-between align-items-center">
+                              <div class="db-icon">
+                                 <i class="fas fa-user-graduate"></i>
+                              </div>
+                              <div class="db-info">
+                                 <h3>{{class_activity}}</h3>
+                                 <h6>Class Activity</h6>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                     <div class="card bg-two w-100">
+                        <div class="card-body">
+                           <div class="db-widgets d-flex justify-content-between align-items-center">
+                              <div class="db-icon">
+                                 <i class="fas fa-chalkboard-teacher"></i>
+                              </div>
+                              <div class="db-info">
+                                 <h3>{{assignment_and_quiz}}</h3>
+                                 <h6>Assignments & Quiz</h6>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                     <div class="card bg-three w-100">
+                        <div class="card-body">
+                           <div class="db-widgets d-flex justify-content-between align-items-center">
+                              <div class="db-icon">
+                                 <i class="fas fa-graduation-cap"></i>
+                              </div>
+                              <div class="db-info">
+                                 <h3>{{mid_term}}</h3>
+                                 <h6>Mid Term</h6>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                     <div class="card bg-four w-100">
+                        <div class="card-body">
+                           <div class="db-widgets d-flex justify-content-between align-items-center">
+                              <div class="db-icon">
+                                 <i class="fas fa-book"></i>
+                              </div>
+                              <div class="db-info">
+                                 <h3>{{exam_marks}}</h3>
+                                 <h6>Final Term</h6>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-md-12 col-lg-6">
+                     <div class="card card-chart">
+                        <div class="card-header">
+                           <div class="row align-items-center">
+                              <div class="col-6">
+                                 <h5 class="card-title">All Result Details</h5>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <div id="all_result_details"></div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-6">
+                     <div class="card card-chart">
+                        <div class="card-header">
+                           <div class="row align-items-center">
+                              <div class="col-12">
+                                 <h5 class="card-title">Final Term & Mid Term</h5>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <div id="final_mid"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+<!--               <div class="row">-->
+<!--                  <div class="col-md-12 col-lg-6">-->
+<!--                     <div class="card card-chart">-->
+<!--                        <div class="card-header">-->
+<!--                           <div class="row align-items-center">-->
+<!--                              <div class="col-6">-->
+<!--                                 <h5 class="card-title">Course & Subject</h5>-->
+<!--                              </div>-->
+<!--                           </div>-->
+<!--                        </div>-->
+<!--                        <div class="card-body">-->
+<!--                           <div id="course_subject"></div>-->
+<!--                        </div>-->
+<!--                     </div>-->
+<!--                  </div>-->
+<!--               </div>-->
+
+
+{% include 'includes/chart.html' %}
+
+{% endblock %}

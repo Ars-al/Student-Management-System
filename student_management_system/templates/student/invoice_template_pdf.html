@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+
+    <style>
+        /* Add your styles for the PDF here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <p>Serial Number: {{ invoice.serial_number }}</p>
+
+<!--	<div class="card">-->
+<!--    <div class="card-header bg-black"></div>-->
+<!--    <div class="card-body">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col-xl-12">-->
+<!--                    <i class="far fa-building text-danger fa-6x float-start"></i>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row">-->
+<!--                <div class="col-xl-12">-->
+<!--                    <ul class="list-unstyled float-end">-->
+<!--                        <li style="font-size: 30px; color: red;">Company</li>-->
+<!--                        <li>123, Elm Street</li>-->
+<!--                        <li>123-456-789</li>-->
+<!--                        <li>mail@mail.com</li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row text-center">-->
+<!--                <h3 class="text-uppercase text-center mt-3" style="font-size: 40px;">Invoice</h3>-->
+<!--                <p>123456789</p>-->
+<!--            </div>-->
+
+<!--            <div class="row mx-3">-->
+<!--                <table class="table">-->
+<!--                    <thead>-->
+<!--                        <tr>-->
+<!--                            <th scope="col">Description</th>-->
+<!--                            <th scope="col">Amount</th>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--			-->
+
+<!--            <hr>-->
+
+<!--            <div class="row">-->
+<!--                <div class="col-xl-8" style="margin-left:60px">-->
+<!--                    <p class="float-end"-->
+<!--                        style="font-size: 30px; color: red; font-weight: 400;font-family: Arial, Helvetica, sans-serif;">-->
+<!--                        Total:-->
+<!--                        <span><i class="fas fa-dollar-sign"></i> 6350,00</span></p>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row mt-2 mb-5">-->
+<!--                <p class="fw-bold">Date: <span class="text-muted"></span></p>-->
+<!--                <p class="fw-bold mt-3">Signature:</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="card-footer bg-black"></div>-->
+<!--</div>-->
+
+<div class="card">
+        <div class="card-header bg-black"></div>
+        <div class="card-body">
+
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-12">
+                <i class="far fa-building text-danger fa-6x float-start"></i>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-xl-12">
+
+                <ul class="list-unstyled float-end">
+                  <li style="font-size: 30px; color: red;">Company</li>
+                  <li>123, Elm Street</li>
+                  <li>123-456-789</li>
+                  <li>mail@mail.com</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="row text-center">
+              <h3 class="text-uppercase text-center mt-3" style="font-size: 40px;">Invoice</h3>
+              <p>123456789</p>
+            </div>
+
+            <div class="row mx-3">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in items %}
+                        <tr>
+                            <td>{{ i.description }}</td>
+                            <td>{{ i.amount }}</td>
+                        </tr>
+					{% endfor %}
+                </tbody>
+              </table>
+
+            </div>
+
+            <hr>
+
+            <div class="row">
+              <div class="col-xl-8" style="margin-left:60px">
+                <p class="float-end"
+                  style="font-size: 30px; color: red; font-weight: 400;font-family: Arial, Helvetica, sans-serif;">
+                  Total:
+                  <span>{{total_amount}}</span></p>
+              </div>
+
+            </div>
+
+            <div class="row mt-2 mb-5">
+              <p class="fw-bold">Date: <span class="text-muted">{{date}}</span></p>
+              <p class="fw-bold mt-3">Signature:</p>
+            </div>
+
+          </div>
+
+
+
+        </div>
+        <div class="card-footer bg-black"></div>
+      </div>
+
+</body>
+</html>

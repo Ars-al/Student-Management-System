@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Inbox</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+                           <li class="breadcrumb-item active">Inbox</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+
+               {% include 'includes/messages.html' %}
+
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card card-table">
+                        <div class="card-body">
+                           <div class="table-responsive">
+                              <table id="table_id" class="table table-hover table-center mb-0">
+                                 <thead>
+                                    <tr>
+                                       <th>ID</th>
+                                       <th>Your All Queries</th>
+                                       <th>Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    {% for i in support_data %}
+                                        <tr>
+                                           <td>{{i.query.id}}</td>
+                                           <td>
+                                              {% if i.replies %}
+                                                <a href="{% url 'support_reply' i.query.id %}" class="text-dark">{{i.query.subject}}
+                                                <br>
+                                               <small>Click here to check reply</small>
+                                                </a>
+                                              {% else %}
+                                                <a class="text-dark">{{i.query.subject}}</a>
+                                               <br>
+                                               <small class="text-danger">No reply for this query yet.</small>
+                                              {% endif %}
+                                           </td>
+                                           <td>
+                                              <a href="{% url 'inbox_delete' i.query.id %}" class="btn btn-sm bg-danger-light"><i class="fas fa-trash"></i></a>
+                                           </td>
+                                        </tr>
+                                    {% endfor %}
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+{% endblock %}

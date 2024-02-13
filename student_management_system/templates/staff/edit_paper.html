@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="post" action="{% url 'update_paper' paper.id %}">
+                                    {% csrf_token %}
+<!--                                    <div class="row">-->
+                                        <div class="col-12">
+                                            <h5 class="form-title"><span>Set Paper</span></h5>
+                                        </div>
+
+                                        {% include 'includes/messages.html' %}
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam Name</label>
+                                                <input type="text" class="form-control" name="exam_name" value="{{paper.exam_name}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam Subject</label>
+                                                   <select class="form-control" name="exam_subject">
+                                                       <option value="{{paper.exam_subject.id}}">{{paper.exam_subject.name}}</option>
+                                                       {% for i in subjects %}
+                                                        <option value="{{i.id}}">{{i.name}}</option>
+                                                       {% endfor %}
+                                                  </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam Class</label>
+                                                <input type="text" class="form-control" name="exam_class" value="{{paper.exam_class}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam Teacher</label>
+                                                <input type="text" class="form-control" name="exam_teacher" value="{{paper.exam_teacher}}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam Start Time</label>
+                                                <input type="datetime-local" class="form-control" name="exam_time" value="{{paper.exam_time}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam End Time</label>
+                                                <input type="datetime-local" class="form-control" name="exam_time_end" value="{{paper.exam_time_end}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Exam Question</label>
+                                                <textarea class="form-control" name="exam_question" rows="10" required>{{paper.exam_question}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">Convert & Submit</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}

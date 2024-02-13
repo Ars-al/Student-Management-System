@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    #totalAmountRow {
+        display: none;
+    }
+</style>
+
+<div class="page-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="page-title">{{course.name}} - Fee Invoice</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Create Invoice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+<div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="post" action="">
+                                    {% csrf_token %}
+                                        <div class="col-12">
+                                            <h5 class="form-title"><span>Create Invoice</span></h5>
+                                        </div>
+
+                                        {% include 'includes/messages.html' %}
+
+                                    <div>
+                                        <button type="button" class="btn btn-secondary" onclick="addInputFields()">Add Description</button>
+                                    </div>
+
+<!--                                    <div class="mt-3">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-12 col-sm-6">-->
+<!--                                                <div class="form-group">-->
+<!--                                                   <label>Description</label>-->
+<!--                                                <input type="text" class="form-control" name="description" required>-->
+<!--                                                </div>-->
+<!--                                             </div>-->
+<!--                                            <div class="col-12 col-sm-6">-->
+<!--                                                <div class="form-group">-->
+<!--                                                   <label>Amount</label>-->
+<!--                                                <input type="text" class="form-control" name="amount" required>-->
+<!--                                                </div>-->
+<!--                                             </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div id="inputFieldsContainer" class="mt-3">
+                                        <div class="row"></div>
+                                    </div>
+
+                                    <div id="totalAmountRow" class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Total Amount</label>
+                                                <input type="text" class="form-control" name="total_amount" id="totalAmount" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 text-right">
+                                        <button type="submit" class="btn btn-primary">Create Invoice</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+<script>
+    let fieldCount = 0;
+    const courseId = '{{ course.id }}';
+
+    function addInputFields() {
+        const container = document.getElementById('inputFieldsContainer');
+
+        fieldCount++;
+
+        const divFormGroup = document.createElement('div');
+        divFormGroup.className = 'form-group col-12 col-sm-6';
+
+        const labelDescription = document.createElement('label');
+        labelDescription.textContent = 'Description';
+
+        const descriptionInput = document.createElement('input');
+        descriptionInput.type = 'text';
+        descriptionInput.className = 'form-control';
+        descriptionInput.name = 'description_' + courseId + '_' + fieldCount;
+        descriptionInput.required = true;
+
+        const divAmountFormGroup = document.createElement('div');
+        divAmountFormGroup.className = 'form-group col-12 col-sm-6';
+
+        const labelAmount = document.createElement('label');
+        labelAmount.textContent = 'Amount';
+
+        const amountInput = document.createElement('input');
+        amountInput.type = 'number';
+        amountInput.className = 'form-control';
+        amountInput.name = 'amount_' + courseId + '_' + fieldCount;
+        amountInput.required = true;
+
+        divFormGroup.appendChild(labelDescription);
+        divFormGroup.appendChild(descriptionInput);
+        container.children[0].appendChild(divFormGroup);
+
+        divAmountFormGroup.appendChild(labelAmount);
+        divAmountFormGroup.appendChild(amountInput);
+        container.children[0].appendChild(divAmountFormGroup);
+
+        sessionStorage.setItem('inputFields_' + courseId, container.innerHTML);
+    }
+
+    function loadSavedValues() {
+        const container = document.getElementById('inputFieldsContainer');
+        const savedFields = sessionStorage.getItem('inputFields_' + courseId);
+
+        if (savedFields !== null) {
+            container.innerHTML = savedFields;
+        }
+    }
+
+    // Load saved values when the page fully loads
+    document.addEventListener('DOMContentLoaded', loadSavedValues);
+
+    function updateTotalAmount() {
+        const amountInputs = document.querySelectorAll('[name^="amount_"]');
+        let totalAmount = 0;
+
+        amountInputs.forEach(input => {
+            const amountValue = parseFloat(input.value) || 0;
+            totalAmount += amountValue;
+        });
+
+        const totalAmountRow = document.getElementById('totalAmountRow')
+        const totalAmountInput = document.getElementById('totalAmount');
+
+        if (totalAmount > 0) {
+            totalAmountRow.style.display = 'block';
+            totalAmountInput.value = totalAmount.toFixed(2); // Adjust the precision as needed
+        } else {
+            totalAmountRow.style.display = 'none';
+            totalAmountInput.value = '';  // Clear the value when there is no data
+        }
+    }
+
+    // Attach the updateTotalAmount function to the change event of amount inputs
+    document.addEventListener('change', function (event) {
+        if (event.target && event.target.name && event.target.name.startsWith('amount_')) {
+            updateTotalAmount();
+        }
+    });
+</script>
+
+
+{% endblock %}

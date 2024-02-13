@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Add Schedule</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="subjects.html">Dashboard</a></li>
+                           <li class="breadcrumb-item active">Schedule</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+    {% include 'includes/messages.html' %}
+      {% if action is None %}
+      <form method="post" action="?action=Show-Students">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Add Schedule</span></h5>
+                                 </div>
+
+                                  <div class="col-12 col-sm-6">
+                                 <div class="form-group">
+                                 <label >Subject</label>
+                                       <select class="form-control" name="subject_id">
+                                            <option>-- Select Subject--</option>
+                                            {% for i in subject %}
+                                            <option value="{{i.id}}">{{i.name}}</option>
+                                            {% endfor %}
+                                      </select>
+                                 </div>
+                                  </div>
+                                 <br>
+                                <div class="col-10 mr-3">
+                                    <button type="submit" class="btn btn-primary">Fetch Staff</button>
+                                 </div>
+                              </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+      {% else %}
+      <form method="post" action="{% url 'schedule_assign' %}">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Add Schedule</span></h5>
+                                 </div>
+
+                                  <div class="col-12 col-sm-6">
+                                     <div class="form-group">
+                                     <label >Subject</label>
+                                           <select class="form-control" name="subject_id">
+                                                <option value="{{get_subject.id}}">{{get_subject}}</option>
+                                          </select>
+                                     </div>
+                                  </div>
+                                  <div class="col-12 col-sm-6 mt-lg-4 pt-lg-2">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                      Schedule History
+                                    </button>
+                                 </div>
+                                  <hr>
+                                  <div class="col-12 col-sm-12">
+                                 <div class="form-group">
+                                 <label>Staff List</label>
+                                       <select class="form-control" name="staff_id">
+                                            {% for i in staff %}
+                                            <option value="{{i.admin.id}}">{{i.admin.first_name}} {{i.admin.last_name}}</option>
+                                            {% endfor %}
+                                      </select>
+                                  </div>
+                                  </div>
+
+                                  <div class="col-12 col-sm-6">
+                                      <div class="form-group">
+                                        <label>Assign Date</label>
+                                           <input type="date" class="form-control" name="sch_date" required>
+                                      </div>
+                                  </div>
+
+                                  <div class="col-sm-3">
+                                      <div class="form-group">
+                                        <label>Start Time</label>
+                                           <input type="time" class="form-control" name="sch_time" required>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-3">
+                                      <div class="form-group">
+                                        <label>End Time</label>
+                                           <input type="time" class="form-control" name="end_time" required>
+                                      </div>
+                                  </div>
+                                  <div class="col-12 col-sm-6">
+                                      <div class="form-group">
+                                        <label>Room No</label>
+                                           <input type="text" class="form-control" name="sch_room" required>
+                                      </div>
+                                  </div>
+                                 <br>
+                                <div class="col-10 mr-3">
+                                    <button type="submit" class="btn btn-primary">Assign Schedule</button>
+                                 </div>
+                              </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+      {% endif %}
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">All Feedbacks</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card card-table">
+                        <div class="card-body">
+                           <div class="table-responsive">
+                              <table class="table table-hover table-center mb-0">
+                                 <thead>
+                                    <tr>
+                                       <th>Teacher</th>
+                                        <th>Date</th>
+                                       <th>Time</th>
+                                        <th>Room No</th>
+                                        <th>Edit Schedule</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    {% for i in schedule %}
+                                        <tr>
+                                            <td>{{i.staff.admin.first_name}} {{i.staff.admin.last_name}}</td>
+                                            <td>{{i.assign_date}}</td>
+                                           <td>{{i.assign_time}} To {{i.end_time}}</td>
+                                            <td>{{i.room_no}}</td>
+                                            <td>
+                                                <div class="actions">
+                                                 <a href="{% url 'edit_schedule' i.id %}" class="btn btn-sm bg-success-light mr-2">
+                                                 <i class="fas fa-pen"></i>
+                                                 </a>
+                                                 <a href="{% url 'delete_schedule' i.id %}" class="btn btn-sm bg-danger-light">
+                                                 <i class="fas fa-trash"></i>
+                                                 </a>
+                                              </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

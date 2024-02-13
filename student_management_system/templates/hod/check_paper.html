@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+<!--                                <form>-->
+<!--                                    {% csrf_token %}-->
+<!--                                    <div class="row">-->
+                                        <div class="col-12">
+                                            <h5 class="form-title"><span>Check Paper</span></h5>
+                                        </div>
+
+                                        {% include 'includes/messages.html' %}
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam Name</label>
+                                                <input type="text" class="form-control" name="exam_name" value="{{paper.exam_name}}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam Subject</label>
+                                                <input type="text" class="form-control" name="exam_subject" value="{{paper.exam_subject}}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam Class</label>
+                                                <input type="text" class="form-control" name="exam_class" value="{{paper.exam_class}}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam Teacher</label>
+                                                <input type="text" class="form-control" name="exam_teacher" value="{{paper.exam_subject.staff.admin.first_name}} {{paper.exam_subject.staff.admin.last_name}}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam Start Time</label>
+                                                <input type="text" class="form-control" name="exam_time" value="{{paper.exam_time}}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Exam End Time</label>
+                                                <input type="text" class="form-control" name="exam_time_end" value="{{paper.exam_time_end}}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Exam Question</label>
+                                                <textarea class="form-control" name="exam_question" rows="10" readonly>{{paper.exam_question}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <a href="{% url 'pdf' paper.id %}" class="btn btn-primary">Generate PDF</a>
+                                        </div>
+                                    </div>
+<!--                                </form>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}

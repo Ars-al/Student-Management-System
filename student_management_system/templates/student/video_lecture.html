@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block content %}
+
+<div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Video Lectures</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="subjects.html">Dashboard</a></li>
+                           <li class="breadcrumb-item active">Video Lectures</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+    {% include 'includes/messages.html' %}
+      {% if action is None %}
+      <form method="post" action="?action=Show-Students">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Add Video Lectures</span></h5>
+                                 </div>
+
+                                  <div class="col-12 col-sm-6">
+                                 <div class="form-group">
+                                        <label>Subject</label>
+                                       <select class="form-control" name="subject_id">
+                                            <option>-- Select Subject--</option>
+                                            {% for i in subject %}
+                                            <option value="{{i.id}}">{{i.name}}</option>
+                                            {% endfor %}
+
+                                      </select>
+                                 </div>
+                                  </div>
+                                 <br>
+                                <div class="col-10 mr-3">
+                                    <button type="submit" class="btn btn-primary">Show</button>
+                                 </div>
+                              </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+      {% else %}
+      <form method="post">
+          {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="row align-items-center">
+                                 <div class="col-12">
+                                     <h5 class="form-title"><span>Video Lectures</span></h5>
+                                 </div>
+                                  <div class="col-12 col-sm-6">
+                                 <div class="form-group">
+                                 <label >Subject</label>
+                                       <select class="form-control" name="subject_id">
+                                            <option value="{{get_subject.id}}">{{get_subject}}</option>
+                                      </select>
+                                 </div>
+                                  </div>
+                              </div>
+                            <div class="row">
+                                                        <div class="col-sm-12">
+                                                         <div class="card card-table">
+                                                            <div class="card-body">
+                                                               <div class="table-responsive">
+                                                                   <table id="table_id " class="table table-hover table-center mb-0">
+                                                                     <thead>
+                                                                        <tr>
+                                                                           <th>Week</th>
+                                                                           <th>Topics</th>
+                                                                            <th>Pdf/Notes</th>
+                                                                        </tr>
+                                                                     </thead>
+                                                                     <tbody>
+                                                                        {% for i in syllabus %}
+                                                                            <tr>
+                                                                               <td>{{i.week}}</td>
+                                                                               <td><a class="text-dark" href="" data-toggle="modal" data-target="#exampleModalCenter{{ i.id }}"
+                                                                               {% if not i.notes_pdf %} onclick="return false;" {% endif %}>
+                                                                                   {{i.topics}}
+                                                                               </a></td>
+                                                                                <td><a class="text-dark" href="{% if i.notes_pdf %}{{i.notes_pdf.url}}{% else %} # {% endif %}" target="_blank">
+                                                                                    {% if i.notes_pdf %}
+                                                                                        {{ i.notes_pdf.name|file_name }}
+                                                                                    {% else %}
+                                                                                        N/A
+                                                                                    {% endif %}
+                                                                                </a></td>
+                                                                            </tr>
+
+                                                                            <!-- Modal -->
+                                                                            <div class="modal fade" id="exampleModalCenter{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                  <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLongTitle">{{i.topics}} Video</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                      <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                  </div>
+                                                                                  <div class="p-1">
+                                                                                      <iframe  style="width: 100%; height: 300px" src="{{i.video_link}}" frameborder="0" allowfullscreen></iframe>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+
+                                                                        {% endfor %}
+                                                                     </tbody>
+                                                                  </table>
+                                                               </div>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                            <hr>
+                          </div>
+                        </div>
+                     </div>
+               </div>
+      </form>
+      {% endif %}
+</div>
+
+
+{% endblock %}

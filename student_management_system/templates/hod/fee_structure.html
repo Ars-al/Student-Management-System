@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+                <div class="page-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="page-title">Fee Structure</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Fee Structure</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {% include 'includes/messages.html' %}
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card card-table">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-center mb-0 ">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Class</th>
+                                                <th>Fee</th>
+                                                <th class="text-center">Total Students</th>
+                                                <th>Total Fees</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for course in all_courses_with_students_count %}
+                                                <tr>
+                                                    <td>{{course.id}}</td>
+                                                    <td><a href="{% url 'invoice' course.id %}" class="text-dark">{{course.name}}</a></td>
+                                                    <td>3000</td>
+                                                    <td class="text-center">{{course.student_count}}</td>
+                                                    <td>6000</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}
